@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F7F4EC;
+    color: #111111;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  
+  html.dark body,
+  .dark body {
+    background-color: #141414;
+    color: #F7F4EC;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Instrument Serif', Georgia, serif;
+  }
+}
+
+.font-heading {
+  font-family: 'Instrument Serif', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+/* Editorial Highlight Marker */
+.editorial-highlight {
+  background-color: #FFD21C;
+  color: #111111;
+  padding: 0.1em 0.4em;
+  display: inline-block;
+  line-height: 1.1;
+}
+
+/* Editorial Cards */
+.editorial-card,
+.light-card {
+  background-color: #FAF8F3;
+  border: 1px solid #E5E0D8;
+  border-radius: 0px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+html.dark .editorial-card,
+html.dark .light-card,
+.dark .editorial-card,
+.dark .light-card {
+  background-color: #1C1C1C !important;
+  border-color: #2F2F2F !important;
+  box-shadow: none !important;
+}
+
+.light-card-hover {
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.light-card-hover:hover {
+  border-color: #111111;
+}
+
+html.dark .light-card-hover:hover,
+.dark .light-card-hover:hover {
+  border-color: #555555 !important;
+}
+
+/* Primary Editorial Action Button (Crisp Black & White) */
+.btn-primary,
+.btn-primary-green {
+  background-color: #111111;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 0px;
+  border: 1px solid #111111;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary:hover,
+.btn-primary-green:hover {
+  background-color: #2A2A2A;
+  border-color: #2A2A2A;
+}
+
+/* Secondary Editorial Action Button (Ivory with Crisp Border) */
+.btn-secondary,
+.btn-secondary-light {
+  background-color: #F7F4EC;
+  color: #111111;
+  border: 1px solid #D8D1C2;
+  font-weight: 500;
+  border-radius: 0px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-secondary:hover,
+.btn-secondary-light:hover {
+  background-color: #EFECE3;
+  border-color: #111111;
+  color: #111111;
+}
+
+html.dark .btn-secondary,
+html.dark .btn-secondary-light,
+.dark .btn-secondary,
+.dark .btn-secondary-light {
+  background-color: #1C1C1C;
+  border-color: #333333;
+  color: #E7E2D6;
+}
+
+html.dark .btn-secondary:hover,
+html.dark .btn-secondary-light:hover,
+.dark .btn-secondary:hover,
+.dark .btn-secondary-light:hover {
+  background-color: #2A2A2A;
+  border-color: #555555;
+  color: #FFFFFF;
+}
+
+/* Yellow Editorial Action Button */
+.btn-yellow {
+  background-color: #FFD21C;
+  color: #111111;
+  font-weight: 600;
+  border-radius: 0px;
+  border: 1px solid #FFD21C;
+  transition: background-color 0.15s ease;
+}
+
+.btn-yellow:hover {
+  background-color: #E8BD14;
+  border-color: #E8BD14;
+}
+
+/* Deep Green Solidarity Button */
+.btn-forest {
+  background-color: #123D32;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 0px;
+  border: 1px solid #123D32;
+  transition: background-color 0.15s ease;
+}
+
+.btn-forest:hover {
+  background-color: #0E3027;
+}
+
+/* Skeleton Loading Utilities */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.skeleton-shimmer {
+  background-color: #E7E2D6;
+  animation: skeleton-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-radius: 0px;
+}
+
+html.dark .skeleton-shimmer,
+.dark .skeleton-shimmer {
+  background-color: #262626 !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7F4EC;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8D1C2;
+  border-radius: 0px;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #333333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B0B0B0;
+}
+

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Time Bank AI — Total Stack & Architecture Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 8.8pt;
+      line-height: 1.45;
+      color: #111111;
+      background-color: #FFFFFF;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, .serif {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 700;
+      color: #111111;
+      letter-spacing: -0.01em;
+    }
+
+    h1 {
+      font-size: 22pt;
+      line-height: 1.1;
+      margin-bottom: 4pt;
+    }
+
+    h2 {
+      font-size: 14pt;
+      line-height: 1.2;
+      margin-top: 14pt;
+      margin-bottom: 6pt;
+      padding-bottom: 3pt;
+      border-bottom: 1.5px solid #111111;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h3 {
+      font-size: 11pt;
+      line-height: 1.2;
+      margin-top: 10pt;
+      margin-bottom: 4pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h4 {
+      font-size: 9.5pt;
+      margin-top: 6pt;
+      margin-bottom: 2pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 5pt;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 14pt;
+      margin-bottom: 5pt;
+    }
+
+    li {
+      margin-bottom: 2.5pt;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+      font-size: 7.8pt;
+    }
+
+    code {
+      background-color: #F4F1EA;
+      padding: 1pt 3pt;
+      border: 1px solid #E5E0D8;
+      border-radius: 2px;
+      color: #111111;
+    }
+
+    pre {
+      background-color: #FAF8F3;
+      border: 1px solid #E5E0D8;
+      padding: 6pt 8pt;
+      margin: 5pt 0;
+      overflow-x: auto;
+      line-height: 1.35;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Header Banner */
+    .header-banner {
+      background-color: #F7F4EC;
+      border: 1.5px solid #111111;
+      padding: 10pt 14pt;
+      margin-bottom: 10pt;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4pt;
+      border-bottom: 1px solid #D8D1C2;
+      padding-bottom: 4pt;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 2pt 5pt;
+      background-color: #FFD21C;
+      color: #111111;
+      border: 1px solid #111111;
+    }
+
+    .doc-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      color: #4A4A4A;
+    }
+
+    .subtitle {
+      font-size: 10pt;
+      color: #4A4A4A;
+      margin-bottom: 3pt;
+      font-style: italic;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 6pt 0 10pt 0;
+      font-size: 8pt;
+      page-break-inside: auto;
+    }
+
+    tr {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    th {
+      background-color: #111111;
+      color: #FFFFFF;
+      font-weight: 600;
+      text-align: left;
+      padding: 4pt 6pt;
+      font-size: 7.8pt;
+      letter-spacing: 0.02em;
+      border: 1px solid #111111;
+    }
+
+    td {
+      padding: 3.5pt 6pt;
+      border: 1px solid #E5E0D8;
+      vertical-align: top;
+      line-height: 1.35;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #FAF8F3;
+    }
+
+    /* Callout & Formula Box */
+    .callout {
+      background-color: #FAF8F3;
+      border-left: 3px solid #111111;
+      border-top: 1px solid #E5E0D8;
+      border-right: 1px solid #E5E0D8;
+      border-bottom: 1px solid #E5E0D8;
+      padding: 6pt 9pt;
+      margin: 6pt 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .callout-green {
+      background-color: #F2F7F5;
+      border-left: 3px solid #123D32;
+    }
+
+    .callout-yellow {
+      background-color: #FFFDF2;
+      border-left: 3px solid #FFD21C;
+    }
+
+    .formula-box {
+      background-color: #F7F4EC;
+      border: 1px dashed #111111;
+      padding: 5pt 8pt;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5pt;
+      font-weight: 600;
+      margin: 6pt 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Two Column Layout */
+    .row {
+      display: flex;
+      gap: 10pt;
+      margin-bottom: 6pt;
+    }
+
+    .col {
+      flex: 1;
+    }
+
+    /* Micro tags */
+    .tag {
+      display: inline-block;
+      font-size: 6.8pt;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      padding: 1pt 3.5pt;
+      border: 1px solid #111111;
+      margin-right: 2pt;
+      background: #FFFFFF;
+      vertical-align: baseline;
+    }
+
+    .tag-yellow {
+      background: #FFD21C;
+    }
+
+    .tag-green {
+      background: #123D32;
+      color: #FFFFFF;
+      border-color: #123D32;
+    }
+
+    .section-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    .footer-note {
+      margin-top: 12pt;
+      padding-top: 5pt;
+      border-top: 1px solid #E5E0D8;
+      font-size: 7.2pt;
+      font-family: 'JetBrains Mono', monospace;
+      color: #6B6B6B;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Banner -->
+  <div class="header-banner">
+    <div class="header-top">
+      <span class="badge-pill">COMPREHENSIVE TECHNICAL DOSSIER</span>
+      <span class="doc-meta">DOCUMENT ID: CTB-ARCH-2026 • REVISION 2.5</span>
+    </div>
+    <h1>Community Time Bank AI</h1>
+    <div class="subtitle">Complete Technology Stack, Relational Schema, Algorithmic Engine &amp; Feature Audit</div>
+    <div class="doc-meta" style="margin-top: 3pt;">
+      <strong>Classification:</strong> Academic College Project Documentation &bull; 
+      <strong>Architecture:</strong> Single-Origin Client + Express API + Relational Ledger &bull; 
+      <strong>Status:</strong> Production Verified &amp; Audited
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <h2>1. Executive Summary &amp; Core Philosophy</h2>
+  <p>
+    <strong>Community Time Bank AI</strong> is a full-stack, peer-to-peer service reciprocity platform designed for collegiate and local communities. The platform enables individuals to exchange practical skills, neighborly assistance, and academic tutoring using <strong>Time Credits</strong> rather than monetary currency.
+  </p>
+  
+  <div class="callout callout-green">
+    <strong>The Non-Negotiable Reciprocity Principle:</strong> 
+    One verified hour of community service equals exactly <strong>one base Time Credit (1.0 cr)</strong>, regardless of the conventional commercial market value of the skill. The system eliminates financial friction, empowering students and local residents to access high-value assistance through reciprocal contribution.
+  </div>
+
+  <ul>
+    <li><strong>Dual-Party Atomic Confirmation:</strong> Credits never transfer automatically upon session completion. Both the requester and helper must submit cryptographic completion confirmations in their portal before balance settlement occurs.</li>
+    <li><strong>Fair Credit Multiplier System:</strong> Standardized 1.0&times;, 1.25&times;, and 1.5&times; complexity multipliers accommodate tasks demanding certified expertise, physical hazards, or specialized equipment without compromising fairness.</li>
+    <li><strong>Non-Monetary Community Utility:</strong> Surplus credits can be gifted to a shared <strong>Community Credit Pool</strong> for hardship grants or redeemed in a <strong>Local Perks Catalog</strong> for event passes and cafe vouchers. Direct fiat cash withdrawals are strictly forbidden.</li>
+  </ul>
+
+  <!-- Section 2 -->
+  <h2>2. Complete Technology Stack</h2>
+
+  <h3>2.1 Frontend Client Layer</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 13%;">Version</th>
+        <th>Architectural Role &amp; Implementation Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>React</strong></td>
+        <td><code>18.3.1</code></td>
+        <td>Component-based UI engine utilizing functional components, custom hooks, and React Context for application state (AuthContext, ThemeContext).</td>
+      </tr>
+      <tr>
+        <td><strong>TypeScript</strong></td>
+        <td><code>5.6.2</code></td>
+        <td>Strict static type checking across all views, data transfer objects (DTOs), API models, and client event handlers.</td>
+      </tr>
+      <tr>
+        <td><strong>Vite</strong></td>
+        <td><code>6.0.7</code></td>
+        <td>High-performance development server and Rollup production bundler with reverse proxy configuration mapping <code>/api</code> to the backend on port 5001. Configured with <code>allowedHosts: true</code> for public tunneling.</td>
+      </tr>
+      <tr>
+        <td><strong>Tailwind CSS</strong></td>
+        <td><code>3.4.17</code></td>
+        <td>Utility-first styling with custom editorial theme configuration, dark mode support via <code>class</code> strategy, PostCSS, and Autoprefixer.</td>
+      </tr>
+      <tr>
+        <td><strong>Design System</strong></td>
+        <td><em>Editorial / Bold</em></td>
+        <td>Human-centered visual language: Warm Ivory (<code>#F7F4EC</code> / <code>#FAF8F3</code>), Charcoal (<code>#111111</code>), Yellow Marker (<code>#FFD21C</code>), Civic Forest Green (<code>#123D32</code>), and strict 0px border-radii.</td>
+      </tr>
+      <tr>
+        <td><strong>Typography</strong></td>
+        <td>Google Fonts</td>
+        <td><strong>Instrument Serif</strong> (display headers), <strong>DM Sans</strong> (interface &amp; body), and <strong>Caveat</strong> (editorial handwritten annotations).</td>
+      </tr>
+      <tr>
+        <td><strong>Routing</strong></td>
+        <td><code>6.28.0</code></td>
+        <td><code>react-router-dom</code> with client-side history, declarative path mapping, <code>ProtectedRoute</code> session guard, and <code>AdminRoute</code> role guard.</td>
+      </tr>
+      <tr>
+        <td><strong>Icons &amp; Effects</strong></td>
+        <td><code>1.16.0</code></td>
+        <td><code>lucide-react</code> for crisp vector interface iconography; <code>canvas-confetti</code> for micro-interaction celebrations.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 Backend Application &amp; API Layer</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 13%;">Version</th>
+        <th>Architectural Role &amp; Implementation Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Node.js</strong></td>
+        <td><code>v24.x LTS</code></td>
+        <td>Runtime environment operating on native ES Modules (<code>"type": "module"</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Express.js</strong></td>
+        <td><code>4.21.2</code></td>
+        <td>RESTful API routing framework with JSON request parsing, URL-encoded body parsing, and centralized error handling middleware.</td>
+      </tr>
+      <tr>
+        <td><strong>TypeScript Runner</strong></td>
+        <td><code>tsx 4.19.3</code></td>
+        <td>Zero-compile TypeScript runtime execution with live-reloading watch mode for seamless local development.</td>
+      </tr>
+      <tr>
+        <td><strong>Prisma ORM</strong></td>
+        <td><code>6.4.1</code></td>
+        <td>Type-safe query builder, declarative schema management, database migrations, and ACID-compliant interactive transactions (<code>prisma.$transaction</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Database Engine</strong></td>
+        <td>SQLite / PG</td>
+        <td>Zero-friction local development powered by SQLite (<code>dev.db</code>); schema fully normalized for PostgreSQL migration.</td>
+      </tr>
+      <tr>
+        <td><strong>Authentication</strong></td>
+        <td><code>jsonwebtoken 9.0.2</code></td>
+        <td>Stateless Bearer JWT authentication with 7-day expiration and automated role payload extraction (<code>MEMBER</code>, <code>ADMIN</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Password Hashing</strong></td>
+        <td><code>bcryptjs 3.0.2</code></td>
+        <td>One-way salted hashing executed with 10 salt rounds; plaintext passwords are never persisted.</td>
+      </tr>
+      <tr>
+        <td><strong>Concurrency Mgmt</strong></td>
+        <td><code>concurrently 9.1.2</code></td>
+        <td>Coordinates unified root script execution for backend (port 5001) and frontend (port 5173).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 3 -->
+  <h2 class="section-break">3. Database Schema &amp; Relational Architecture</h2>
+  <p>
+    The persistence layer consists of <strong>15 relational entities</strong> defined in <code>server/prisma/schema.prisma</code>, maintaining strict referential integrity with cascade rules and unique constraints.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 20%;">Model Name</th>
+        <th style="width: 28%;">Key Attributes / Types</th>
+        <th>Purpose &amp; Relational Cardinality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong><code>User</code></strong></td>
+        <td><code>id, email, passwordHash, role, status, creditBalance (Float)</code></td>
+        <td>Core identity record. Defaults to 3.0 initial welcome credits. Relates 1:1 to Profile, 1:N to Listings, Bookings, Transactions.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Profile</code></strong></td>
+        <td><code>fullName, bio, area, phone, contactPreference, averageRating, completedCount</code></td>
+        <td>Public directory details. Cascadely deleted with User. Maintains rating aggregate and completed service counters.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Category</code></strong></td>
+        <td><code>name, icon, active, multiplierEligible (Bool), maxMultiplier (Float)</code></td>
+        <td>Governs skill groupings (Tech, Gardening, Home Repair, Tutoring, Creative). Dictates complexity multiplier caps.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Skill</code></strong></td>
+        <td><code>name, categoryId</code></td>
+        <td>Granular skill directory (e.g., Python, Plant Pruning, Furniture Assembly).</td>
+      </tr>
+      <tr>
+        <td><strong><code>UserSkill</code></strong></td>
+        <td><code>userId, skillId, proficiency (BEGINNER, INTERMEDIATE, EXPERT)</code></td>
+        <td>Junction table mapping member skills. Composite unique index on <code>[userId, skillId]</code>.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Availability</code></strong></td>
+        <td><code>userId, weekday, startTime, endTime</code></td>
+        <td>Recurring weekly calendar slots used for algorithmic availability scoring.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Listing</code></strong></td>
+        <td><code>title, description, durationHours, complexityLevel, multiplier, status</code></td>
+        <td>Exchange offers and requests. Stores complexity tier (STANDARD, INTERMEDIATE, ADVANCED) and rate (1.0&times; to 1.5&times;).</td>
+      </tr>
+      <tr>
+        <td><strong><code>Booking</code></strong></td>
+        <td><code>startAt, durationHours, agreedMultiplier, finalCreditAmount, status</code></td>
+        <td>Service contracts progressing: <code>REQUESTED &rarr; ACCEPTED &rarr; COMPLETED / DISPUTED</code>.</td>
+      </tr>
+      <tr>
+        <td><strong><code>CompletionConfirmation</code></strong></td>
+        <td><code>bookingId, userId, confirmedAt</code></td>
+        <td>Two-party confirmation log. Credit transfer executes only when both requester and helper records exist.</td>
+      </tr>
+      <tr>
+        <td><strong><code>CreditTransaction</code></strong></td>
+        <td><code>amount, baseCreditAmount, multiplier, finalCreditAmount, type, description</code></td>
+        <td>Immutable append-only ledger tracking all credit transfers, signup grants, redemptions, and pool donations.</td>
+      </tr>
+      <tr>
+        <td><strong><code>AdminAuditLog</code></strong></td>
+        <td><code>adminId, action, targetType, targetId, reason, oldValue, newValue</code></td>
+        <td>Immutable administrative log recording multiplier adjustments, category policy changes, and disputes.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Review</code></strong></td>
+        <td><code>bookingId, authorId, subjectId, rating (1-5), comment</code></td>
+        <td>Bilateral peer evaluation submitted after mutual booking completion.</td>
+      </tr>
+      <tr>
+        <td><strong><code>Report</code></strong></td>
+        <td><code>reporterId, targetUserId, bookingId, reason, status, resolutionNotes</code></td>
+        <td>Safety and dispute tickets reviewed by Campus Administrators.</td>
+      </tr>
+      <tr>
+        <td><strong><code>RedemptionOption</code></strong></td>
+        <td><code>title, category, creditCost, quantityRemaining, partnerName, expiryDate</code></td>
+        <td>Perks catalog (event tickets, cafe discount vouchers, donated goods).</td>
+      </tr>
+      <tr>
+        <td><strong><code>Redemption</code></strong></td>
+        <td><code>userId, redemptionOptionId, creditsSpent, voucherCode, status</code></td>
+        <td>Member voucher claims with cryptographically unique identifiers (<code>TB-RED-XXXX-YYYY</code>).</td>
+      </tr>
+      <tr>
+        <td><strong><code>CommunityPool</code></strong></td>
+        <td><code>currentBalance, totalDonated, totalAllocated, updatedAt</code></td>
+        <td>Singleton solidarity reserve tracking donated hours and audited hardship grants.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 4 -->
+  <h2 class="section-break">4. Core Algorithms &amp; Mathematical Formulations</h2>
+
+  <h3>4.1 Explainable Recommendation Engine (Matching Algorithm)</h3>
+  <p>
+    When a member posts a request or searches for assistance, the recommendation engine in <code>matchingService.ts</code> evaluates all active helpers on a 100-point scale:
+  </p>
+
+  <div class="formula-box">
+    MatchScore = S_skill (40%) + S_avail (25%) + S_location (15%) + S_rating (10%) + S_reliability (10%)
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="callout">
+        <strong>1. Skill Relevance (Max 40 pts)</strong>
+        <p style="font-size: 7.8pt; margin: 0;">
+          Direct skill match awards points scaled by proficiency: <strong>Expert = 40 pts</strong>, <strong>Intermediate = 32 pts</strong>, <strong>Beginner = 24 pts</strong>. Secondary matching skills add +4 pts each. Partial category/keyword matches receive a 20 pt baseline.
+        </p>
+      </div>
+      <div class="callout">
+        <strong>2. Availability Overlap (Max 25 pts)</strong>
+        <p style="font-size: 7.8pt; margin: 0;">
+          Exact match on requester's preferred day awards <strong>25 pts</strong>. General active schedule slots award 15 pts. Unscheduled helpers receive 5 pts baseline.
+        </p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="callout">
+        <strong>3. Location Proximity (Max 15 pts)</strong>
+        <p style="font-size: 7.8pt; margin: 0;">
+          Identical neighborhood or remote-compatible tasks award <strong>15 pts</strong>. Adjacent neighborhoods within the municipal area receive 7 pts.
+        </p>
+      </div>
+      <div class="callout">
+        <strong>4. Trust &amp; Reliability (Max 20 pts)</strong>
+        <p style="font-size: 7.8pt; margin: 0;">
+          Rating score (Max 10 pts) equals <code>(Rating / 5.0) &times; 10</code>. Past completion reliability (Max 10 pts) awards 10 pts for &ge; 5 completed sessions, 7 pts for 1&ndash;4 completed sessions.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <h3>4.2 Fair Credit Multiplier System</h3>
+  <div class="formula-box">
+    TransferAmount = ServiceDurationInHours &times; AgreedMultiplier
+  </div>
+  <ul>
+    <li><span class="tag tag-yellow">1.0&times; STANDARD</span> General tutoring, language exchange, plant care, conversational assistance.</li>
+    <li><span class="tag tag-yellow">1.25&times; INTERMEDIATE</span> Certified instruction, complex software debugging, moderate physical effort.</li>
+    <li><span class="tag tag-yellow">1.5&times; ADVANCED CAP</span> Component-level hardware repair, hazardous tools, emergency support. Strictly capped at 1.5&times;.</li>
+  </ul>
+
+  <!-- Section 5 -->
+  <h2>5. Application Features &amp; User Routes</h2>
+
+  <h3>5.1 Public Interfaces</h3>
+  <ul>
+    <li><strong><code>/</code> (Landing Page):</strong> Editorial manifesto, live Fair Credit Multiplier Calculator sandbox, 5 exchange principles, and interactive persona launcher.</li>
+    <li><strong><code>/auth</code> (Authentication):</strong> Login and registration forms with a 1-click persona bar for instant evaluator switching without manual typing.</li>
+    <li><strong><code>/terms</code> &amp; <code>/privacy</code>:</strong> Complete regulatory, governance, data safety, and non-monetary compliance documentation.</li>
+  </ul>
+
+  <h3>5.2 Authenticated Member Workspace</h3>
+  <ul>
+    <li><strong><code>/dashboard</code>:</strong> Operational control hub displaying live credit balance, completed exchange count, upcoming bookings timeline, and AI helper recommendations.</li>
+    <li><strong><code>/find-help</code>:</strong> Service marketplace with multi-tier filters, category search, proximity matching, and instantaneous booking requests.</li>
+    <li><strong><code>/my-listings</code>:</strong> Listing manager allowing members to create, edit, pause, and close help offers and requests with complexity tier selection.</li>
+    <li><strong><code>/bookings</code>:</strong> Bilateral lifecycle manager tracking sessions from requested to completed, featuring mutual completion confirmations.</li>
+    <li><strong><code>/wallet</code>:</strong> Transparent ledger tracking personal balance, total earned, total spent, filterable transaction histories, and breakdown receipts.</li>
+    <li><strong><code>/redeem</code>:</strong> Perks and vouchers catalog for non-monetary credit redemptions with cryptographic voucher generation.</li>
+    <li><strong><code>/community-pool</code>:</strong> Solidarity reserve enabling members to donate surplus hours with dedication messages and view public aid distributions.</li>
+    <li><strong><code>/profile</code>:</strong> Personal skills manager, proficiency tag selector, contact preferences, and recurring availability calendar.</li>
+    <li><strong><code>/messages</code>:</strong> In-app direct communication interface between exchange participants.</li>
+    <li><strong><code>/community-events</code>:</strong> Local group activities, community gardens, repair cafes, and workshop calendar.</li>
+    <li><strong><code>/ai-assistant</code>:</strong> Natural language concierge answering reciprocity policy queries and recommending helpers.</li>
+  </ul>
+
+  <h3>5.3 Administrative Command Center (<code>AdminRoute</code>)</h3>
+  <ul>
+    <li><strong><code>/admin</code> (Member Moderation):</strong> Directory search, balance inspection, and account suspension/reactivation.</li>
+    <li><strong><code>/admin</code> (Policy Governance):</strong> Category creation, multiplier eligibility toggles, and maximum multiplier ceiling configuration.</li>
+    <li><strong><code>/admin</code> (Dispute Resolution):</strong> Review flagged bookings, inspect communication logs, and execute binding credit adjustments.</li>
+    <li><strong><code>/admin</code> (Pool Distributions):</strong> Allocate hardship assistance from the shared community pool with mandatory immutable audit reasons.</li>
+    <li><strong><code>/admin</code> (Voucher Audit):</strong> Partner voucher validation and inventory restocking.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- Section 6 -->
+  <h2>6. Pre-Seeded Personas &amp; Test Credentials</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 18%;">Persona</th>
+        <th style="width: 12%;">Role</th>
+        <th style="width: 26%;">Email</th>
+        <th style="width: 16%;">Password</th>
+        <th>Profile &amp; Skill Specialization</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Alice Johnson</strong></td>
+        <td><span class="tag">MEMBER</span></td>
+        <td><code>member.a@college.edu</code></td>
+        <td><code>password123</code></td>
+        <td>Literature student &bull; Requester persona &bull; Downtown &bull; 4.0 cr balance</td>
+      </tr>
+      <tr>
+        <td><strong>Bob Smith</strong></td>
+        <td><span class="tag">MEMBER</span></td>
+        <td><code>member.b@college.edu</code></td>
+        <td><code>password123</code></td>
+        <td>CS Sophomore &bull; Expert Python, Wi-Fi &amp; Hardware Setup &bull; 3.0 cr balance</td>
+      </tr>
+      <tr>
+        <td><strong>Carlos Mendez</strong></td>
+        <td><span class="tag">MEMBER</span></td>
+        <td><code>member.c@college.edu</code></td>
+        <td><code>password123</code></td>
+        <td>Urban Gardener &bull; Vegetable Cultivation &amp; Math Tutor &bull; 5.0 cr balance</td>
+      </tr>
+      <tr>
+        <td><strong>Elena Rostova</strong></td>
+        <td><span class="tag">MEMBER</span></td>
+        <td><code>member.d@college.edu</code></td>
+        <td><code>password123</code></td>
+        <td>Senior Designer &bull; UI/UX, Graphic Design &amp; Resume Review &bull; 4.5 cr balance</td>
+      </tr>
+      <tr>
+        <td><strong>Campus Admin</strong></td>
+        <td><span class="tag tag-green">ADMIN</span></td>
+        <td><code>admin@college.edu</code></td>
+        <td><code>admin123</code></td>
+        <td>Platform Safety Officer &bull; Dispute Arbitrator &bull; 100.0 cr reserve</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 7 -->
+  <h2>7. Directory Structure &amp; Build Verification</h2>
+  <pre>TY-PROJECT-2/
+├── package.json                   # Concurrently orchestrator (npm run dev)
+├── client/                        # React 18 + Vite 6 + Tailwind CSS Frontend
+│   ├── src/
+│   │   ├── components/            # BookingModal, MatchCard, Sidebar, Navbar, DemoSwitcher
+│   │   ├── context/               # AuthContext, ThemeContext
+│   │   ├── pages/                 # 16 routes (Dashboard, FindHelp, Bookings, Wallet, Admin, Pool)
+│   │   └── services/              # API Axios/Fetch client
+│   └── vite.config.ts             # Dev proxy (/api &rarr; :5001) &amp; tunnel host permissions
+└── server/                        # Node.js + Express + Prisma ORM Backend
+    ├── prisma/
+    │   ├── schema.prisma          # 15 Relational entities &amp; Enums
+    │   └── seed.ts                # Database reset &amp; realistic persona seeding
+    └── src/
+        ├── index.ts               # Express application entry &amp; middleware
+        ├── routes/                # 12 REST controllers (auth, bookings, listings, pool, admin)
+        └── services/              # matchingService.ts &amp; ledgerService.ts</pre>
+
+  <div class="footer-note">
+    <span>Community Time Bank AI &bull; Total Stack &amp; Architecture Report</span>
+    <span>Generated via Chromium Print Pipeline &bull; October 2026</span>
+  </div>
+
+</body>
+</html>

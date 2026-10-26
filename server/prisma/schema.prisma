@@ -1,0 +1,333 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  PENDING
+}
+
+enum ListingType {
+  OFFER
+  REQUEST
+}
+
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  CLOSED
+}
+
+enum BookingStatus {
+  REQUESTED
+  ACCEPTED
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
+enum ReportStatus {
+  OPEN
+  REVIEWING
+  RESOLVED
+  DISMISSED
+}
+
+enum TransactionType {
+  SERVICE_EXCHANGE
+  ADMIN_ADJUSTMENT
+  SIGNUP_BONUS
+  REDEEMED
+  DONATED_TO_POOL
+  ALLOCATED_FROM_POOL
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String
+  role         Role        @default(MEMBER)
+  status       UserStatus  @default(ACTIVE)
+  creditBalance Float      @default(3.0) // Initial welcome credits
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  profile      Profile?
+  userSkills   UserSkill[]
+  availability Availability[]
+  listings     Listing[]   @relation("UserListings")
+
+  requestedBookings Booking[] @relation("RequesterBookings")
+  helperBookings    Booking[] @relation("HelperBookings")
+
+  confirmations CompletionConfirmation[]
+
+  sentTransactions     CreditTransaction[] @relation("SentTransactions")
+  receivedTransactions CreditTransaction[] @relation("ReceivedTransactions")
+
+  authoredReviews Review[] @relation("AuthoredReviews")
+  receivedReviews Review[] @relation("ReceivedReviews")
+
+  filedReports    Report[] @relation("FiledReports")
+  targetedReports Report[] @relation("TargetedReports")
+
+  redemptions            Redemption[]
+  poolDonations          CommunityPoolDonation[]    @relation("UserDonations")
+  receivedAllocations    CommunityPoolAllocation[]  @relation("UserAllocations")
+  administeredAllocations CommunityPoolAllocation[] @relation("AdminAllocations")
+  adminAuditLogs         AdminAuditLog[]            @relation("AdminAuditLogs")
+}
+
+model Profile {
+  id                String  @id @default(uuid())
+  userId            String  @unique
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName          String
+  bio               String?
+  area              String  @default("Downtown")
+  phone             String?
+  avatarUrl         String?
+  contactPreference String  @default("IN_APP")
+  averageRating     Float   @default(5.0)
+  reviewCount       Int     @default(0)
+  completedCount    Int     @default(0)
+}
+
+model Category {
+  id                 String    @id @default(uuid())
+  name               String    @unique
+  description        String?
+  icon               String?   @default("Briefcase")
+  active             Boolean   @default(true)
+  multiplierEligible Boolean   @default(true)
+  maxMultiplier      Float     @default(1.5)
+  skills             Skill[]
+  listings           Listing[]
+}
+
+model Skill {
+  id         String      @id @default(uuid())
+  name       String      @unique
+  categoryId String
+  category   Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  userSkills UserSkill[]
+}
+
+model UserSkill {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skillId     String
+  skill       Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  proficiency String   @default("INTERMEDIATE") // BEGINNER, INTERMEDIATE, EXPERT
+
+  @@unique([userId, skillId])
+}
+
+model Availability {
+  id        String @id @default(uuid())
+  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weekday   String // "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+  startTime String // "09:00"
+  endTime   String // "17:00"
+}
+
+model Listing {
+  id                    String        @id @default(uuid())
+  ownerId               String
+  owner                 User          @relation("UserListings", fields: [ownerId], references: [id], onDelete: Cascade)
+  type                  ListingType   @default(REQUEST) // OFFER or REQUEST
+  categoryId            String
+  category              Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  title                 String
+  description           String
+  durationHours         Float         @default(1.0)
+  status                ListingStatus @default(ACTIVE)
+  area                  String        @default("Downtown")
+  preferredDates        String?
+  complexityLevel       String        @default("STANDARD") // STANDARD, INTERMEDIATE, ADVANCED
+  multiplier            Float         @default(1.0)        // 1.0, 1.25, 1.5
+  complexityExplanation String?
+  materialsRequired     Boolean       @default(false)
+  urgencyLevel          String        @default("STANDARD") // STANDARD, URGENT
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  bookings Booking[]
+}
+
+model Booking {
+  id                String        @id @default(uuid())
+  listingId         String?
+  listing           Listing?      @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  requesterId       String
+  requester         User          @relation("RequesterBookings", fields: [requesterId], references: [id], onDelete: Cascade)
+  helperId          String
+  helper            User          @relation("HelperBookings", fields: [helperId], references: [id], onDelete: Cascade)
+  startAt           DateTime
+  durationHours     Float         @default(1.0)
+  agreedMultiplier  Float         @default(1.0) // 1.0, 1.25, 1.5
+  finalCreditAmount Float         @default(1.0) // durationHours * agreedMultiplier
+  notes             String?
+  status            BookingStatus @default(REQUESTED)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  confirmations CompletionConfirmation[]
+  transactions  CreditTransaction[]
+  reviews       Review[]
+  reports       Report[]
+}
+
+model CompletionConfirmation {
+  id          String   @id @default(uuid())
+  bookingId   String
+  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  confirmedAt DateTime @default(now())
+
+  @@unique([bookingId, userId])
+}
+
+model CreditTransaction {
+  id                String          @id @default(uuid())
+  bookingId         String?
+  booking           Booking?        @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  fromUserId        String?
+  fromUser          User?           @relation("SentTransactions", fields: [fromUserId], references: [id], onDelete: SetNull)
+  toUserId          String?
+  toUser            User?           @relation("ReceivedTransactions", fields: [toUserId], references: [id], onDelete: SetNull)
+  amount            Float           // final transfer amount
+  baseCreditAmount  Float?          // base hours (e.g. 2.0)
+  multiplier        Float           @default(1.0) // e.g. 1.5
+  finalCreditAmount Float?          // baseCreditAmount * multiplier
+  transactionReason String?         // reason or description of rate
+  type              TransactionType @default(SERVICE_EXCHANGE)
+  description       String
+  createdAt         DateTime        @default(now())
+}
+
+model AdminAuditLog {
+  id         String   @id @default(uuid())
+  adminId    String
+  admin      User     @relation("AdminAuditLogs", fields: [adminId], references: [id], onDelete: Cascade)
+  action     String   // "MULTIPLIER_APPROVAL", "MULTIPLIER_ADJUSTMENT", "MULTIPLIER_REJECTION", "CATEGORY_MULTIPLIER_CONFIG"
+  targetType String   // "LISTING", "BOOKING", "CATEGORY"
+  targetId   String
+  reason     String
+  oldValue   String?
+  newValue   String?
+  createdAt  DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  bookingId String
+  booking   Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User     @relation("AuthoredReviews", fields: [authorId], references: [id], onDelete: Cascade)
+  subjectId String
+  subject   User     @relation("ReceivedReviews", fields: [subjectId], references: [id], onDelete: Cascade)
+  rating    Int      // 1 to 5
+  comment   String
+  createdAt DateTime @default(now())
+
+  @@unique([bookingId, authorId])
+}
+
+model Report {
+  id              String       @id @default(uuid())
+  reporterId      String
+  reporter        User         @relation("FiledReports", fields: [reporterId], references: [id], onDelete: Cascade)
+  targetUserId    String
+  targetUser      User         @relation("TargetedReports", fields: [targetUserId], references: [id], onDelete: Cascade)
+  bookingId       String?
+  booking         Booking?     @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  reason          String
+  status          ReportStatus @default(OPEN)
+  resolutionNotes String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model RedemptionOption {
+  id                String       @id @default(uuid())
+  title             String
+  description       String
+  category          String       // EVENT_PASS, PARTNER_DISCOUNT, VOUCHER, DONATED_GOOD, LOCAL_SERVICE
+  creditCost        Float
+  quantityTotal     Int          @default(100)
+  quantityRemaining Int          @default(100)
+  status            String       @default("ACTIVE") // ACTIVE, PAUSED, OUT_OF_STOCK
+  partnerName       String?
+  expiryDate        DateTime?
+  imageUrl          String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  redemptions       Redemption[]
+}
+
+model Redemption {
+  id                 String           @id @default(uuid())
+  userId             String
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  redemptionOptionId String
+  redemptionOption   RedemptionOption @relation(fields: [redemptionOptionId], references: [id], onDelete: Cascade)
+  creditsSpent       Float
+  voucherCode        String           @unique
+  status             String           @default("ACTIVE") // ACTIVE, USED, EXPIRED
+  createdAt          DateTime         @default(now())
+  usedAt             DateTime?
+}
+
+model CommunityPool {
+  id              String   @id @default("default-pool")
+  name            String   @default("Campus Community Care Pool")
+  description     String   @default("Shared community credit reserve to assist newcomers and members needing help.")
+  currentBalance  Float    @default(0.0)
+  totalDonated    Float    @default(0.0)
+  totalAllocated  Float    @default(0.0)
+  updatedAt       DateTime @updatedAt
+
+  donations       CommunityPoolDonation[]
+  allocations     CommunityPoolAllocation[]
+}
+
+model CommunityPoolDonation {
+  id        String        @id @default(uuid())
+  poolId    String        @default("default-pool")
+  pool      CommunityPool @relation(fields: [poolId], references: [id], onDelete: Cascade)
+  donorId   String
+  donor     User          @relation("UserDonations", fields: [donorId], references: [id], onDelete: Cascade)
+  amount    Float
+  note      String?
+  createdAt DateTime      @default(now())
+}
+
+model CommunityPoolAllocation {
+  id          String        @id @default(uuid())
+  poolId      String        @default("default-pool")
+  pool        CommunityPool @relation(fields: [poolId], references: [id], onDelete: Cascade)
+  recipientId String
+  recipient   User          @relation("UserAllocations", fields: [recipientId], references: [id], onDelete: Cascade)
+  adminId     String
+  admin       User          @relation("AdminAllocations", fields: [adminId], references: [id], onDelete: Cascade)
+  amount      Float
+  reason      String
+  createdAt   DateTime      @default(now())
+}

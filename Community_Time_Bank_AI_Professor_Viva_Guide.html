@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Time Bank AI — Professor Presentation & Viva Defense Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 9mm 12mm 9mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 8.2pt;
+      line-height: 1.35;
+      color: #111111;
+      background-color: #FFFFFF;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, .serif {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 700;
+      color: #111111;
+      letter-spacing: -0.01em;
+    }
+
+    h1 {
+      font-size: 19pt;
+      line-height: 1.05;
+      margin-bottom: 2pt;
+    }
+
+    h2 {
+      font-size: 11.8pt;
+      line-height: 1.15;
+      margin-top: 8pt;
+      margin-bottom: 3pt;
+      padding-bottom: 2pt;
+      border-bottom: 1.2px solid #111111;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h3 {
+      font-size: 9.8pt;
+      line-height: 1.15;
+      margin-top: 6pt;
+      margin-bottom: 2pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 3.5pt;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 12pt;
+      margin-bottom: 3.5pt;
+    }
+
+    li {
+      margin-bottom: 1.5pt;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+      font-size: 7.2pt;
+    }
+
+    code {
+      background-color: #F4F1EA;
+      padding: 1pt 2.5pt;
+      border: 1px solid #E5E0D8;
+      border-radius: 2px;
+      color: #111111;
+    }
+
+    pre {
+      background-color: #FAF8F3;
+      border: 1px solid #E5E0D8;
+      padding: 4pt 6pt;
+      margin: 3pt 0;
+      overflow-x: auto;
+      line-height: 1.25;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Header Banner */
+    .header-banner {
+      background-color: #F7F4EC;
+      border: 1.2px solid #111111;
+      padding: 6pt 10pt;
+      margin-bottom: 6pt;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2pt;
+      border-bottom: 1px solid #D8D1C2;
+      padding-bottom: 2pt;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 1pt 4pt;
+      background-color: #FFD21C;
+      color: #111111;
+      border: 1px solid #111111;
+    }
+
+    .doc-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6.8pt;
+      color: #4A4A4A;
+    }
+
+    .subtitle {
+      font-size: 9pt;
+      color: #4A4A4A;
+      margin-bottom: 2pt;
+      font-style: italic;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4pt 0 6pt 0;
+      font-size: 7.5pt;
+      page-break-inside: auto;
+    }
+
+    tr {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    th {
+      background-color: #111111;
+      color: #FFFFFF;
+      font-weight: 600;
+      text-align: left;
+      padding: 3pt 5pt;
+      font-size: 7.2pt;
+      letter-spacing: 0.02em;
+      border: 1px solid #111111;
+    }
+
+    td {
+      padding: 2.5pt 5pt;
+      border: 1px solid #E5E0D8;
+      vertical-align: top;
+      line-height: 1.25;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #FAF8F3;
+    }
+
+    /* Callout & Formula Box */
+    .callout {
+      background-color: #FAF8F3;
+      border-left: 3px solid #111111;
+      border-top: 1px solid #E5E0D8;
+      border-right: 1px solid #E5E0D8;
+      border-bottom: 1px solid #E5E0D8;
+      padding: 4.5pt 7pt;
+      margin: 4pt 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .callout-green {
+      background-color: #F2F7F5;
+      border-left: 3px solid #123D32;
+    }
+
+    .callout-yellow {
+      background-color: #FFFDF2;
+      border-left: 3px solid #FFD21C;
+    }
+
+    .formula-box {
+      background-color: #F7F4EC;
+      border: 1px dashed #111111;
+      padding: 3.5pt 6pt;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.6pt;
+      font-weight: 600;
+      margin: 3pt 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Q&A Cards */
+    .qa-card {
+      background-color: #FAF8F3;
+      border: 1px solid #E5E0D8;
+      padding: 4.5pt 6.5pt;
+      margin-bottom: 4.5pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .qa-question {
+      font-weight: 700;
+      color: #111111;
+      font-size: 7.9pt;
+      margin-bottom: 1.5pt;
+    }
+
+    .qa-answer {
+      font-style: italic;
+      color: #262626;
+      border-left: 2px solid #FFD21C;
+      padding-left: 5pt;
+      margin-top: 1.5pt;
+      font-size: 7.6pt;
+      line-height: 1.3;
+    }
+
+    /* Step Cards */
+    .step-card {
+      background-color: #FFFFFF;
+      border: 1px solid #E5E0D8;
+      padding: 4pt 6pt;
+      margin-bottom: 4pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .step-header {
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      color: #123D32;
+      margin-bottom: 1.5pt;
+    }
+
+    /* Micro tags */
+    .tag {
+      display: inline-block;
+      font-size: 6.2pt;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      padding: 1pt 2.5pt;
+      border: 1px solid #111111;
+      margin-right: 2pt;
+      background: #FFFFFF;
+      vertical-align: baseline;
+    }
+
+    .tag-yellow {
+      background: #FFD21C;
+    }
+
+    .tag-green {
+      background: #123D32;
+      color: #FFFFFF;
+      border-color: #123D32;
+    }
+
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    .footer-note {
+      margin-top: 8pt;
+      padding-top: 3pt;
+      border-top: 1px solid #E5E0D8;
+      font-size: 6.8pt;
+      font-family: 'JetBrains Mono', monospace;
+      color: #6B6B6B;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sign-box {
+      border: 1px dashed #111111;
+      background: #FAF8F3;
+      padding: 5pt 8pt;
+      margin-top: 6pt;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.2pt;
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PAGE 1 ================= -->
+  <div class="header-banner">
+    <div class="header-top">
+      <span class="badge-pill">VIVA &amp; PRESENTATION DEFENSE GUIDE</span>
+      <span class="doc-meta">ACADEMIC YEAR 2025–2026 • FINAL EVALUATION</span>
+    </div>
+    <h1>Community Time Bank AI</h1>
+    <div class="subtitle">Complete Technical Walkthrough, Code Logic &amp; Defense Talking Points for Faculty Review</div>
+    <div class="doc-meta">
+      <strong>Purpose:</strong> Comprehensive Faculty Presentation Reference &bull; 
+      <strong>Presenter:</strong> Engineering Project Viva Defense &bull; 
+      <strong>Format:</strong> High-Yield Technical Answers &amp; Code References
+    </div>
+  </div>
+
+  <h2>1. The 30-Second Elevator Pitch (Opening Statement)</h2>
+  <div class="callout callout-green">
+    <p style="font-size: 8.2pt; margin: 0; line-height: 1.35;">
+      <em>&ldquo;Good morning / afternoon Ma&rsquo;am. My project is <strong>Community Time Bank AI</strong>, a decentralized service reciprocity platform designed for college campuses and local communities. In our application, members exchange real-world assistance&mdash;such as Python programming, hardware repair, plant care, and academic tutoring&mdash;using <strong>Time Credits</strong> instead of money. The fundamental axiom is: <strong>one verified hour of community assistance equals one base Time Credit (1.0 cr)</strong>, establishing an egalitarian economy. To make this credible and practical, I implemented an <strong>Explainable 100-Point AI Matching Engine</strong>, a <strong>Bilateral Double-Confirmation Settlement Protocol</strong>, and a governed <strong>Fair Credit Multiplier System</strong> (1.0&times;, 1.25&times;, 1.5&times;).&rdquo;</em>
+    </p>
+  </div>
+
+  <h2>2. End-to-End System Architecture</h2>
+  <p>
+    When explaining how the layers interact, describe the clean separation of concerns between client, API, and database:
+  </p>
+  <pre>┌──────────────────────────────────┐         HTTP / JSON REST         ┌──────────────────────────────────┐
+│  React 18 + Vite Client (5173)   │ ◄──────────────────────────────► │  Node.js + Express API (5001)    │
+│  Tailwind CSS (Editorial Theme)  │    Proxy: /api &rarr; :5001 (No CORS)  │  JWT Auth Guard + Error Handler  │
+└──────────────────────────────────┘                                  └────────────────┬─────────────────┘
+                                                                                       │ Prisma ORM Layer
+                                                                                       ▼
+                                                                      ┌──────────────────────────────────┐
+                                                                      │   Relational DB (15 Entities)    │
+                                                                      │   SQLite (Dev) / PostgreSQL (Prod)│
+                                                                      └──────────────────────────────────┘</pre>
+
+  <h2>3. Deep Code Walkthrough (Key Implementation Files)</h2>
+
+  <h3>3.1 The Explainable Matching Engine &mdash; <code>server/src/services/matchingService.ts</code></h3>
+  <p>
+    <strong>Core Question:</strong> <em>&ldquo;How does your AI/recommendation algorithm work?&rdquo;</em><br>
+    <strong>What to say:</strong> <em>&ldquo;Ma&rsquo;am, instead of relying on an opaque black-box LLM, we engineered a transparent, explainable 100-point multi-factor recommendation engine. It scores every active helper against the request across five weighted parameters:&rdquo;</em>
+  </p>
+
+  <div class="formula-box">
+    MatchScore = S_skill (40%) + S_avail (25%) + S_location (15%) + S_rating (10%) + S_reliability (10%)
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Factor &amp; Weight</th>
+        <th style="width: 22%;">Code Reference</th>
+        <th>Algorithmic Evaluation Logic</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Skill Relevance (40%)</strong></td>
+        <td><code>lines 95&ndash;119</code></td>
+        <td>Evaluates proficiency tier: <strong>Expert = 40 pts</strong>, <strong>Intermediate = 32 pts</strong>, <strong>Beginner = 24 pts</strong>. Each additional relevant skill adds +4 pts. Partial category matches yield a 20 pt baseline.</td>
+      </tr>
+      <tr>
+        <td><strong>Availability (25%)</strong></td>
+        <td><code>lines 121&ndash;141</code></td>
+        <td>Awards <strong>25 pts</strong> for exact weekday overlap with preferred dates. General active schedule slots award 15 pts.</td>
+      </tr>
+      <tr>
+        <td><strong>Location Proximity (15%)</strong></td>
+        <td><code>lines 143&ndash;155</code></td>
+        <td>Awards <strong>15 pts</strong> for identical neighborhood (e.g., &ldquo;Downtown&rdquo;) or remote-friendly requests; 7 pts for adjacent city sectors.</td>
+      </tr>
+      <tr>
+        <td><strong>Community Rating (10%)</strong></td>
+        <td><code>lines 157&ndash;163</code></td>
+        <td>Normalizes the helper&rsquo;s 5-star rating: <code>(Rating / 5.0) &times; 10</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Past Reliability (10%)</strong></td>
+        <td><code>lines 164&ndash;172</code></td>
+        <td>Awards <strong>10 pts</strong> for members with &ge; 5 verified completed exchanges, 7 pts for 1&ndash;4 exchanges.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3.2 Bilateral Double-Confirmation Settlement &mdash; <code>server/src/services/ledgerService.ts</code></h3>
+  <p>
+    <strong>Core Question:</strong> <em>&ldquo;How do you prevent fraud or one person falsely claiming they completed a session?&rdquo;</em><br>
+    <strong>What to say:</strong> <em>&ldquo;Ma&rsquo;am, credits never transfer automatically. We enforce a two-party confirmation gate. Only when both parties independently submit their completion confirmation does the atomic transaction execute.&rdquo;</em>
+  </p>
+
+  <div class="callout callout-yellow">
+    <strong>Code Logic (lines 66&ndash;148):</strong>
+    <pre style="margin: 2.5pt 0; background: #FFFFFF; font-size: 7pt;">const requesterConfirmed = allConfirmations.some(c =&gt; c.userId === booking.requesterId);
+const helperConfirmed = allConfirmations.some(c =&gt; c.userId === booking.helperId);
+
+if (requesterConfirmed &amp;&amp; helperConfirmed) {
+  await prisma.$transaction(async (tx) =&gt; {
+    await tx.booking.update({ where: { id: bookingId }, data: { status: 'COMPLETED' } });
+    await tx.user.update({ where: { id: booking.requesterId }, data: { creditBalance: { decrement: transferAmount } } });
+    await tx.user.update({ where: { id: booking.helperId }, data: { creditBalance: { increment: transferAmount } } });
+    await tx.creditTransaction.create({ data: { bookingId, fromUserId: booking.requesterId, toUserId: booking.helperId, amount: transferAmount, ... } });
+  });
+}</pre>
+    <p style="font-size: 7pt; margin-top: 1.5pt; margin-bottom: 0;">
+      <strong>Why this matters to examiners:</strong> <code>prisma.$transaction</code> guarantees <strong>atomicity</strong>. If the server loses connection mid-transfer, all operations roll back completely, ensuring zero credit corruption and double-spending protection.
+    </p>
+  </div>
+
+  <!-- ================= PAGE 2 ================= -->
+  <div class="page-break"></div>
+
+  <h3>3.3 The Fair Credit Multiplier System &mdash; <code>listings.ts</code> &amp; <code>bookings.ts</code></h3>
+  <p>
+    <strong>Core Question:</strong> <em>&ldquo;Why should all hours be equal if some tasks require expensive equipment or high physical risk?&rdquo;</em><br>
+    <strong>What to say:</strong> <em>&ldquo;Ma&rsquo;am, to accommodate specialized tasks without introducing monetary inflation, we created a governed Fair Credit Multiplier System capped strictly at three tiers:&rdquo;</em>
+  </p>
+  <div class="formula-box">
+    TransferAmount = ServiceDurationInHours &times; AgreedMultiplier
+  </div>
+  <ul>
+    <li><span class="tag tag-yellow">1.0&times; STANDARD</span> Peer tutoring, language conversation, general neighborhood gardening.</li>
+    <li><span class="tag tag-yellow">1.25&times; INTERMEDIATE</span> Certified instruction, complex software debugging, specialized tools.</li>
+    <li><span class="tag tag-yellow">1.5&times; ADVANCED CAP</span> Component-level hardware repair, hazardous equipment, emergency support. Strictly capped at 1.5&times;.</li>
+  </ul>
+  <p style="font-size: 7.5pt; margin-top: 1.5pt;">
+    <strong>Anti-Gouging Enforcement:</strong> The client cannot pass arbitrary rates (e.g. 4.0&times;). The backend strictly validates <code>ALLOWED_MULTIPLIERS = [1.0, 1.25, 1.5]</code> and rejects unapproved values with HTTP 400. Once accepted, <code>agreedMultiplier</code> is permanently immutable.
+  </p>
+
+  <h3>3.4 UI Perceived Performance &mdash; <code>client/src/components/SkeletonLoader.tsx</code></h3>
+  <p>
+    <strong>Core Question:</strong> <em>&ldquo;What is this SkeletonLoader file, and why is it needed?&rdquo;</em><br>
+    <strong>What to say:</strong> <em>&ldquo;Ma&rsquo;am, displaying blank screens or abrupt spinners while awaiting asynchronous REST responses causes Cumulative Layout Shift (CLS) and a jarring user experience. In <code>SkeletonLoader.tsx</code>, we created modular skeleton primitives (<code>CardSkeleton</code>, <code>StatCardSkeleton</code>, <code>ListItemSkeleton</code>) that render pulsating placeholder frames matching our cards while data resolves.&rdquo;</em>
+  </p>
+
+  <h2>4. Top 5 Viva Questions &amp; Bulletproof Answers</h2>
+
+  <div class="qa-card">
+    <div class="qa-question">Q1: &ldquo;Why Time Credits instead of integrating a normal payment gateway like Stripe?&rdquo;</div>
+    <div class="qa-answer">
+      &ldquo;Ma&rsquo;am, commercial gig platforms prioritize those with surplus money. In a college campus, many students have valuable skills (like coding or design) but lack disposable cash. Time Banking creates an egalitarian social safety net: one hour of service rendered equals one hour of service received, fostering community solidarity and mutual aid without monetary barriers.&rdquo;
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">Q2: &ldquo;How do you prevent two friends from creating fake bookings to inflate their credits?&rdquo;</div>
+    <div class="qa-answer">
+      &ldquo;First, our credit economy is closed-loop: to give 2 credits to a helper, the requester must already hold those 2 credits in their wallet balance, which are immediately deducted. Second, every new account starts with only 3 welcome credits, so balance generation is strictly bounded. Third, our Admin Moderation Panel tracks transaction velocity and can freeze suspicious accounts.&rdquo;
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">Q3: &ldquo;Why did you choose Prisma ORM over raw SQL or Mongoose?&rdquo;</div>
+    <div class="qa-answer">
+      &ldquo;Prisma delivers end-to-end compile-time type safety: schema definitions automatically generate TypeScript types, meaning typos in column names are caught during compilation rather than in production. Furthermore, Prisma interactive transactions (<code>prisma.$transaction</code>) simplify complex multi-table ACID operations, guaranteeing financial consistency.&rdquo;
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">Q4: &ldquo;What happens if there is a dispute or a helper does not show up?&rdquo;</div>
+    <div class="qa-answer">
+      &ldquo;In our Booking state machine, bookings can transition to <code>DISPUTED</code>. Clicking &lsquo;Report Issue / Dispute&rsquo; automatically halts the credit transfer, alerts the Campus Administrator at <code>/admin</code>, and enables the administrator to inspect communication records and issue a binding credit refund or adjustment with mandatory audit reasons.&rdquo;
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">Q5: &ldquo;Can users cash out their time credits for real fiat currency?&rdquo;</div>
+    <div class="qa-answer">
+      &ldquo;No Ma&rsquo;am, direct cash conversions are strictly prohibited to preserve the non-commercial spirit of community service. Instead, surplus credits can be donated to the <strong>Community Credit Pool</strong> to fund hardship grants for peers, or redeemed in the <strong>Perks Catalog</strong> for sponsor-donated cafe coupons or campus event passes.&rdquo;
+    </div>
+  </div>
+
+  <!-- ================= PAGE 3 ================= -->
+  <div class="page-break"></div>
+
+  <h2>5. Step-by-Step Live Demonstration Script</h2>
+  <p>Follow this exact 5-step sequence during your screen-share presentation:</p>
+
+  <div class="step-card">
+    <div class="step-header">STEP 1: LANDING PAGE &amp; VALUE PROPOSITION (URL: /)</div>
+    <p style="margin: 0; font-size: 7.5pt;">
+      Show the Editorial design, headline manifesto, and scroll to the <strong>Fair Credit Multiplier Calculator</strong>. Demonstrate that moving duration hours automatically calculates fair credit settlement.
+    </p>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">STEP 2: PERSONA SWITCHER &amp; SERVICE SEARCH (URL: /find-help)</div>
+    <p style="margin: 0; font-size: 7.5pt;">
+      Click <strong>Alice Johnson</strong> (Requester) on the top persona bar. Search &ldquo;Python&rdquo;. Show the <strong>Match Card</strong> with the 92% match score and fit highlights. Click <strong>&ldquo;Request Help&rdquo;</strong> to reveal the live rate calculation breakdown in the modal.
+    </p>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">STEP 3: HELPER ACCEPTANCE &amp; FIRST CONFIRMATION (URL: /bookings)</div>
+    <p style="margin: 0; font-size: 7.5pt;">
+      Switch persona to <strong>Bob Smith</strong> (Helper). Navigate to <code>/bookings</code>, accept Alice&rsquo;s request, and click <strong>&ldquo;Confirm Service Completion&rdquo;</strong>. Point out the status message: <em>&ldquo;Waiting for other member to confirm&rdquo;</em> (proving credits have not yet moved).
+    </p>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">STEP 4: MUTUAL COMPLETION &amp; ATOMIC LEDGER TRANSFER</div>
+    <p style="margin: 0; font-size: 7.5pt;">
+      Switch back to <strong>Alice</strong>. Click <strong>&ldquo;Confirm Service Completion&rdquo;</strong>. Confetti triggers! Navigate immediately to <code>/wallet</code> to display the newly generated, immutable transaction record showing base hours, multiplier rate, and new balances.
+    </p>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">STEP 5: CAMPUS ADMINISTRATOR AUDIT &amp; GOVERNANCE (URL: /admin)</div>
+    <p style="margin: 0; font-size: 7.5pt;">
+      Switch to <strong>Campus Admin</strong>. Show the <strong>Multiplier Governance</strong> tab, category configuration, dispute mediation queue, and the <strong>Community Credit Pool</strong> hardship grant allocator.
+    </p>
+  </div>
+
+  <h2>6. Quick Reference Summary Table</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Dimension</th>
+        <th>Engineering Specification &amp; Implementation Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Frontend Stack</strong></td>
+        <td>React 18.3.1 &bull; TypeScript 5.6.2 &bull; Vite 6.0.7 &bull; Tailwind CSS 3.4.17 &bull; Lucide React &bull; React Router 6.28.0</td>
+      </tr>
+      <tr>
+        <td><strong>Backend Stack</strong></td>
+        <td>Node.js (ES Modules) &bull; Express 4.21.2 &bull; tsx runtime &bull; Prisma ORM 6.4.1 &bull; SQLite (Dev) / PostgreSQL &bull; JWT &bull; bcryptjs</td>
+      </tr>
+      <tr>
+        <td><strong>Database Architecture</strong></td>
+        <td>15 Relational Models (User, Profile, Category, Skill, UserSkill, Availability, Listing, Booking, Confirmation, CreditTransaction, AdminAuditLog, Review, Report, Redemption, Pool)</td>
+      </tr>
+      <tr>
+        <td><strong>Core Algorithms</strong></td>
+        <td>100-pt Explainable Recommendation Engine (Skill 40%, Avail 25%, Area 15%, Rating 10%, Rel 10%) &bull; Dual-Party Atomic ACID Ledger Settlement</td>
+      </tr>
+      <tr>
+        <td><strong>Governance Features</strong></td>
+        <td>Fair Credit Multipliers (1.0&times;, 1.25&times;, 1.5&times;) &bull; Community Credit Pool (Hardship Grants) &bull; Non-Monetary Perks Catalog</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Evaluator Sign-off Box -->
+  <div class="sign-box">
+    <div><strong>STUDENT CANDIDATE:</strong> Chaitanya Toraskar</div>
+    <div><strong>PROJECT:</strong> Community Time Bank AI</div>
+    <div><strong>FACULTY EVALUATOR SIGNATURE:</strong> _______________________</div>
+  </div>
+
+  <div class="footer-note">
+    <span>Community Time Bank AI &bull; Viva &amp; Presentation Defense Guide</span>
+    <span>Prepared for Faculty Evaluation &bull; Academic Year 2025–2026</span>
+  </div>
+
+</body>
+</html>
